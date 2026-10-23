@@ -3,6 +3,9 @@ Beautiful Soup is a library that makes it easy to scrape information
 from web pages. It sits atop an HTML or XML parser, providing Pythonic
 idioms for iterating, searching, and modifying the parse tree.
 
+## Notes by Jeff Enriquez
+This repo is only for completing a UCI project for course 261.
+
 ## Environment Setup and Installation
 
 #### Download the repository from Canvas course page
