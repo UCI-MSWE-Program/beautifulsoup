@@ -680,3 +680,47 @@ class SoupStrainer(ElementFilter):
         :meta private:
         """
         return element if self.match(element) else None
+
+
+class SoupReplacer(object):
+    """An object that specifies changes to be made to a document while
+    it's being parsed.
+
+    A `SoupReplacer` is passed into the `BeautifulSoup` constructor as
+    the ``replacer`` argument. During parsing, every tag whose name
+    matches ``original_name`` will be created with ``replacement_name``
+    instead.
+
+    This is similar to `SoupStrainer`, which is passed in as the
+    ``parse_only`` argument. But whereas a `SoupStrainer` controls
+    whether a piece of markup becomes part of the parse tree, a
+    `SoupReplacer` changes markup as it's parsed.
+
+    :param original_name: The name of a tag to be replaced.
+    :param replacement_name: The name the tag will be replaced with.
+    """
+
+    original_name: str
+    replacement_name: str
+
+    def __init__(self, original_name: str, replacement_name: str):
+        self.original_name = original_name
+        self.replacement_name = replacement_name
+
+    def replace_tag_name(self, name: str) -> str:
+        """Return the name that should be used for a tag whose parsed name
+        is ``name``.
+
+        If ``name`` matches :py:attr:`original_name`, return
+        :py:attr:`replacement_name`. Otherwise return ``name``
+        unchanged.
+        """
+        if name == self.original_name:
+            return self.replacement_name
+        return name
+
+    def __repr__(self) -> str:
+        return (
+            f"<{self.__class__.__name__} "
+            f"{self.original_name}->{self.replacement_name}>"
+        )
